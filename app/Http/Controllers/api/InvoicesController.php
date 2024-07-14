@@ -7,5 +7,6 @@ use Illuminate\Http\Request;
 
 class InvoicesController extends Controller
 {
-    //
+    // Create a new invoice
+    
 }
