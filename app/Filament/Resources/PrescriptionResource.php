@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -84,7 +85,15 @@ class PrescriptionResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')->dateTime(),
             ])
             ->filters([
-                //
+                // your filters
+            ])
+            ->actions([
+                // Define row-specific actions
+                Action::make('print')
+                    ->label('Print')
+                    ->url(fn ($record) => route('prescriptions.print', ['prescription' => $record->id]))
+                    ->icon('heroicon-o-printer')
+                    ->color('secondary'),
             ]);
     }
 

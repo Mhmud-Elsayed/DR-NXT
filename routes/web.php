@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PrescriptionController;
 use Illuminate\Support\Facades\Route;
+Route::get('/prescriptions/{prescription}/print', [PrescriptionController::class, 'print'])->name('prescriptions.print');
 
 Route::get('/', function () {
     return view('welcome');
