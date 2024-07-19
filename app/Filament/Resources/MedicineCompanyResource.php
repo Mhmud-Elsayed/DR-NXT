@@ -17,7 +17,11 @@ class MedicineCompanyResource extends Resource
 {
     protected static ?string $model = MedicineCompany::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $navigationGroup  = '💊 medicine';
+    protected static ?string $navigationLabel  = 'companies';
+    protected static ?int $navigationSort = 3;
+
 
     public static function form(Form $form): Form
     {

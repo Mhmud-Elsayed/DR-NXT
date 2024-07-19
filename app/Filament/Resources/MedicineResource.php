@@ -21,7 +21,11 @@ class MedicineResource extends Resource
 {
     protected static ?string $model = Medicine::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-beaker';
+    protected static ?string $navigationGroup  = '💊 medicine';
+    protected static ?int $navigationSort = 1;
+
+
 
     public static function form(Form $form): Form
     {
@@ -47,11 +51,13 @@ class MedicineResource extends Resource
                     ->label('Medicine Company')
                     ->options(MedicineCompany::all()->pluck('name', 'id')) // Adjust according to your needs
                     ->required()
+                    ->searchable()
                     ->Native('false'),
                     Select::make('medicine_unit_id')
                     ->label('Medicine unit')
                     ->options(MedicineUnit::all()->pluck('name', 'id')) // Adjust according to your needs
                     ->required()
+                    ->searchable()
                     ->Native('false'),
                 Forms\Components\TextInput::make('units_number')
                     ->required()
