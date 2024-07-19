@@ -12,10 +12,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 
-extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -33,8 +34,6 @@ extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'phone',
-        'role'
     ];
 
     /**
@@ -70,4 +69,15 @@ extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+    public function canAccessPanel(Panel $panel): bool
+{
+    // Check if the panel ID matches your doctor panel ID
+    if ($panel->getId() === 'doctor') {
+        // Check if the user role is 2
+        return $this->role === 2;
+    }
+
+    // Allow access to other panels by default
+    return true;
+}
 }
