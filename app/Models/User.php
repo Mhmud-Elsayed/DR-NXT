@@ -33,6 +33,8 @@ extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'phone',
+        'role'
     ];
 
     /**
