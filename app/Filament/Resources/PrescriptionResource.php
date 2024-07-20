@@ -77,12 +77,18 @@ class PrescriptionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')->label('User'),
-                Tables\Columns\TextColumn::make('branch.name')->label('Branch'),
-                Tables\Columns\TextColumn::make('doctor.name')->label('Doctor'),
+                Tables\Columns\TextColumn::make('user.name')->searchable()->sortable()->label('User'),
+                Tables\Columns\TextColumn::make('branch.name')->searchable()->sortable()->label('Branch'),
+
+                Tables\Columns\TextColumn::make('doctor.name')->searchable()->sortable()->label('Doctor'),
                 Tables\Columns\TextColumn::make('note'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 // your filters
@@ -94,8 +100,15 @@ class PrescriptionResource extends Resource
                     ->url(fn ($record) => route('prescriptions.print', ['prescription' => $record->id]))
                     ->icon('heroicon-o-printer')
                     ->color('secondary'),
-            ]);
-    }
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                ])
+                ->bulkActions([
+                    Tables\Actions\BulkActionGroup::make([
+                        Tables\Actions\DeleteBulkAction::make(),
+                    ]),
+                ]);
+        }
 
     public static function getPages(): array
     {
