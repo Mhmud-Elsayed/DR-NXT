@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class medicine extends Model
+class Medicine extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -22,9 +22,9 @@ class medicine extends Model
     ];
     public function prescription_medicines()
     {
-        return $this->belongsTo(prescription_medicine::class);
+        return $this->belongsTo(PrescriptionMedicine::class);
     }
-   
+
     public function medicine_units()
     {
         return $this->belongsTo(MedicineUnit::class);
