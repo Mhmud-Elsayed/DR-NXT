@@ -10,9 +10,6 @@ class MedicinesSeeder extends Seeder
     public function run()
     {
         DB::table('medicines')->insert([
-            // Existing data...
-
-            // New data
             [
                 'en_name' => 'acetylcistein 200 mg 10 sachet',
                 'ar_name' => 'استيل سيستايين فوار 200مجم 10 اكياس',
