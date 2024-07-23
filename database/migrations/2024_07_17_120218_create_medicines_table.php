@@ -16,13 +16,13 @@ return new class extends Migration
             $table->id();
             $table->string("ar_name")->unique();
             $table->string("en_name")->unique();
-            $table->string("scientific_name");
-            $table->float("price");
-            $table->string("usage");
+            $table->string("scientific_name")->nullable();
+            $table->float("price")->nullable();
+            $table->string("usage")->nullable();
             $table->foreignId("medicine_company_id")->constrained("medicine_companies");
             $table->foreignId("medicine_unit_id")->constrained("medicine_units");
             $table->integer("units_number");
-            $table->string("barcode");
+            $table->string("barcode")->nullable();
             $table->timestamps();
         });
     }
@@ -35,7 +35,7 @@ return new class extends Migration
         Schema::dropIfExists('medicines');
     }
 
-   
+
 
 
 };
