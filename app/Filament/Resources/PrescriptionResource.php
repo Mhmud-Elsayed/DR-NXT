@@ -78,6 +78,7 @@ class PrescriptionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')->searchable()->sortable()->label('User'),
+                Tables\Columns\TextColumn::make('user.phone')->searchable()->sortable()->label('phone'),
                 Tables\Columns\TextColumn::make('branch.name')->searchable()->sortable()->label('Branch'),
 
                 Tables\Columns\TextColumn::make('doctor.name')->searchable()->sortable()->label('Doctor'),

@@ -31,19 +31,21 @@ class UserResource extends Resource
                     ->required()
                     ->unique()
                     ->maxLength(255),
+                    Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->default('12345678')
+                    ->revealable()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->required()
                     ->unique()
                     ->maxLength(255),
-
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->default(12345678)
-                    ->required()
-                    ->minLength(8)
-                    ->maxLength(255),
-
+                Forms\Components\Textarea::make('diagnosis')
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('medical_history')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -55,19 +57,21 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
+                    Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('role')
-                    ->numeric()
-                    ->sortable(),
-
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -89,7 +93,6 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
