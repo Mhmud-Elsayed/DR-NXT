@@ -25,9 +25,14 @@ class SecretaryPanelProvider extends PanelProvider
         return $panel
             ->id('secretary')
             ->path('secretary')
+            ->login()
             ->colors([
-                'primary' => Color::Amber,
-            ])
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Indigo,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,            ])
             ->discoverResources(in: app_path('Filament/Secretary/Resources'), for: 'App\\Filament\\Secretary\\Resources')
             ->discoverPages(in: app_path('Filament/Secretary/Pages'), for: 'App\\Filament\\Secretary\\Pages')
             ->pages([
