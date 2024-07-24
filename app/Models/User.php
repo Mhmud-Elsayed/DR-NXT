@@ -72,14 +72,20 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         ];
     }
     public function canAccessPanel(Panel $panel): bool
-{
-    // Check if the panel ID matches your doctor panel ID
-    if ($panel->getId() === 'doctor') {
-        // Check if the user role is 2
-        return $this->role === 2;
+    {
+        // Check if the panel ID matches your doctor panel ID
+        if ($panel->getId() === 'doctor') {
+            // Check if the user role is 2
+            return $this->role === 2;
+        } else {
+            // Check for secretary access
+            if ($panel->getId() === 'secretary') {
+                return $this->role === 1;
+            }
+        }
+
+        // Allow access to other panels by default
+        return true;
     }
 
-    // Allow access to other panels by default
-    return true;
-}
 }
