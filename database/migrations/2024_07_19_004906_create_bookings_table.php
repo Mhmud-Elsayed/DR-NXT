@@ -20,7 +20,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('branch_id');
             $table->unsignedBigInteger('doctor_id');
-            $table->boolean('status')->comment('not paid 0, paid 1');
+            $table->boolean('status')->comment('not paid 0, paid 1')->default(0);
             $table->timestamps();
 
             $table->foreign('booking_type_id')->references('id')->on('booking_types')->onDelete('cascade');

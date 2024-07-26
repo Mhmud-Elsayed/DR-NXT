@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PrescriptionResource\Pages;
 use App\Filament\Resources\PrescriptionResource\RelationManagers;
 use App\Models\Prescription;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -25,9 +26,14 @@ class PrescriptionResource extends Resource
         return $form
         ->schema([
             Forms\Components\Select::make('user_id')
-                ->relationship('user', 'name')
-                ->searchable()
-                ->required(),
+            ->relationship('user', 'name')
+            ->searchable()
+            ->getSearchResultsUsing(fn (string $search) => User::where('phone', 'like', "%{$search}%")
+                                                                ->orWhere('name', 'like', "%{$search}%")
+                                                                ->limit(50)
+                                                                ->pluck('name', 'id')
+                                                                ->toArray())
+            ->required(),
             Forms\Components\Select::make('branch_id')
                 ->relationship('branch', 'name')
                 ->searchable()
